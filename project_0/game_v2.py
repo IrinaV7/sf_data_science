@@ -13,15 +13,22 @@ def random_predict(number:int=1) -> int:
     """
     
     count = 0 
+    start = 1
+    end = 100
     
     while True:
         count += 1
-        predict_number = np.random.randint(1, 101) #предполагаемое число 
+        predict_number = (start+end) // 2 # метод бинарного поиска
+        if predict_number == start:
+            return(count)
         if number == predict_number:
-            break # выход из цикла 
+            break # выход из цикла?если угадали
+        elif number < predict_number:
+            end = predict_number
+        else:
+            start = predict_number 
     return(count)
 
-print(f'Количество попыток: {random_predict()}')
 
 def score_game(random_predict) -> int:
     """За какое количество попыток в среднем из 1000 подходов угадывает наш алгоритм
@@ -41,6 +48,6 @@ def score_game(random_predict) -> int:
     
     print(f'Ваш алгоритм угадывает число в среднем за: {score} попыток')
     return(score)
-
+#RUN
 if __name__ == '__main__':
     score_game(random_predict)
